@@ -32,7 +32,7 @@ environments:
 grails:
     profile: rest-api
     codegen:
-        defaultPackage: chat
+        defaultPackage: smspanel
     spring:
         transactionManagement:
             proxies: false
