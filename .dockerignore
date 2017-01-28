@@ -1,0 +1,7 @@
+build
+out
+frontend/node_modules
+frontend/build
+.idea
+.gradle
+.git
