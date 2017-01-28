@@ -29,3 +29,13 @@ export const health = (state = initialStateHealth, action) => {
             return state;
     }
 };
+
+const initialStateContacts = [];
+export const contacts = (state = initialStateContacts, action) => {
+    switch (action.type) {
+        case 'LOAD_CONTACTS':
+            return action.contacts;
+        default:
+            return state;
+    }
+};

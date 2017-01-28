@@ -3,7 +3,20 @@ import backendUrl from './backendUrl';
 
 const backendNotHealthy = () => ({type: 'BACKEND_HEALTH_CHECK_FAIL'});
 const backendHealthy = () => ({type: 'BACKEND_HEALTH_CHECK_SUCCESS'});
-export const loginSuccessful = (username, token) => ({type: 'LOGIN_SUCCESSFULL', username, token});
+
+const loadContacts = contacts => ({type: 'LOAD_CONTACTS', contacts});
+
+export const fetchContacts = () => (dispatch, getState) => {
+    axios.get(`${backendUrl}/api/contacts`, authConfig(getState().login.token))
+        .then(({data}) => dispatch(loadContacts(data)))
+        .catch((err) => console.log(err));
+};
+
+export const loginSuccessful = (username, token) => (dispatch) => {
+    dispatch({type: 'LOGIN_SUCCESSFULL', username, token});
+    dispatch(fetchContacts());
+};
+
 const loginError = () => ({type: 'LOGIN_ERROR'});
 
 const authConfig = (token) => ({
@@ -41,7 +54,7 @@ export const logout = () => (dispatch) => {
     dispatch({type: 'LOGOUT'});
 };
 
-export const validateToken = (username, access_token) => (dispatch) => {
+export const validateTokenAndLogIn = (username, access_token) => (dispatch) => {
     axios.get(`${backendUrl}/api/validate`, authConfig(access_token))
         .then(() => dispatch(loginSuccessful(username, access_token)))
         .catch(() => dispatch(logout()));

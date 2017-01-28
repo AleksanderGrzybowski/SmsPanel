@@ -4,6 +4,7 @@ import { Grid, Row, Col} from 'react-bootstrap';
 import PanelNavbar from './PanelNavbar';
 import ErrorPage from './smspanel/ErrorPage';
 import 'bootstrap/dist/css/bootstrap.css';
+import ContactManager from './ContactManager';
 
 export default class App extends Component {
     render() {
@@ -11,10 +12,12 @@ export default class App extends Component {
             return <ErrorPage/>
         }
         
-        const mainPanel = <div>Main content goes here</div>
+        const mainPanel = <ContactManager
+            contacts={this.props.contacts}
+        />;
 
         return this.props.login.loggedIn ? (
-            <Grid>
+            <Grid fluid>
                 <PanelNavbar
                     username={this.props.login.username}
                     logout={this.props.onLogout}
