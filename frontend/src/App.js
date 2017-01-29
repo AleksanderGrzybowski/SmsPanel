@@ -5,6 +5,7 @@ import PanelNavbar from './PanelNavbar';
 import ErrorPage from './smspanel/ErrorPage';
 import 'bootstrap/dist/css/bootstrap.css';
 import ContactManager from './ContactManager';
+import Queue from './Queue';
 
 export default class App extends Component {
     render() {
@@ -28,16 +29,32 @@ export default class App extends Component {
             </Grid>
         );
 
+        const navbar = (
+            <PanelNavbar
+                username={this.props.login.username}
+                logout={this.props.onLogout}
+                onViewChange={this.props.onViewChange}
+            />
+        );
+        
         const mainView = (
             <Grid fluid>
-                <PanelNavbar
-                    username={this.props.login.username}
-                    logout={this.props.onLogout}
-                />
+                {navbar}
                 <Row>
                     <ContactManager
                         contacts={this.props.contacts}
                         onSend={this.props.onSend}
+                    />
+                </Row>
+            </Grid>
+        );
+        
+        const queueView = (
+            <Grid fluid>
+                {navbar}
+                <Row>
+                    <Queue
+                        
                     />
                 </Row>
             </Grid>
@@ -48,6 +65,8 @@ export default class App extends Component {
                 return loginView;
             case 'main':
                 return mainView;
+            case 'queue':
+                return queueView;
             default:
                 return <div>Not yet implemented</div>;
         }

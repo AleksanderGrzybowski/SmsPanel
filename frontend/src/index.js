@@ -9,7 +9,8 @@ import {
     login as loginAction,
     logout,
     validateTokenAndLogIn,
-    sendMessages
+    sendMessages,
+    changeView
 } from './actions';
 import App from './App';
 import createLogger from 'redux-logger';
@@ -25,6 +26,7 @@ const mapStateToProps = (state) => state;
 const mapDispatchToProps = (dispatch) => ({
     onLogin: (username, password) => dispatch(loginAction(username, password)),
     onLogout: () => dispatch(logout()),
+    onViewChange: (viewName) => dispatch(changeView(viewName)),
     onSend: (messages) => dispatch(sendMessages(messages))
 });
 

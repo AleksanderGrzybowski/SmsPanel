@@ -7,7 +7,7 @@ const authConfig = (token) => ({
     }
 });
 
-const changeView = (view) => ({type: 'CHANGE_VIEW', view});
+export const changeView = (view) => ({type: 'CHANGE_VIEW', view});
 
 const backendNotHealthy = () => ({type: 'BACKEND_HEALTH_CHECK_FAIL'});
 const backendHealthy = () => ({type: 'BACKEND_HEALTH_CHECK_SUCCESS'});
