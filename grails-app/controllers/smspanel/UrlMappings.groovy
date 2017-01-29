@@ -8,6 +8,9 @@ class UrlMappings {
         "/api/contacts"(controller: 'contact') {
             action = [GET: 'list']
         }
+        "/api/queue"(controller: 'smsQueue') {
+            action = [GET: 'list', POST: 'scheduleNewMessages']
+        }
 
         "500"(controller: 'error')
         "404"(view: '/notFound')
