@@ -21,7 +21,7 @@ class SmsQueueController {
                     ],
                     content : it.content,
                     status  : it.status.name(),
-                    dateSent: new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(it.dateSent)
+                    dateSent: new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(it.dateSent)
             ]
         } as JSON)
     }
