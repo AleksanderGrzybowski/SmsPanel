@@ -42,7 +42,7 @@ class SmsQueueControllerSpec extends Specification {
         response.json[0].contact.lastName == sampleEntry.contact.lastName
         response.json[0].content == sampleEntry.content
         response.json[0].status == sampleEntry.status.name()
-        response.json[0].dateSent == new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(sampleEntry.dateSent)
+        response.json[0].dateSent == new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(sampleEntry.dateSent)
     }
     
     def "should schedule new messages"() {
