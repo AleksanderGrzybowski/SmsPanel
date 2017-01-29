@@ -40,7 +40,6 @@ export default class App extends Component {
 
         const mainView = (
             <Grid fluid>
-                {navbar}
                 <Row>
                     <ContactManager
                         contacts={this.props.contacts}
@@ -62,7 +61,6 @@ export default class App extends Component {
 
         const queueView = (
             <Grid fluid>
-                {navbar}
                 <Row>
                     <Queue
                         queue={this.props.queue}
@@ -72,13 +70,18 @@ export default class App extends Component {
             </Grid>
         );
 
+
         switch (this.props.view.currentView) {
             case 'login':
                 return loginView;
             case 'main':
-                return mainView;
             case 'queue':
-                return queueView;
+                return (
+                    <div>
+                        {navbar}
+                        {this.props.view.currentView === 'main' ? mainView : queueView}
+                    </div>
+                );
             default:
                 return <div>Not yet implemented</div>;
         }
