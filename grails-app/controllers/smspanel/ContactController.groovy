@@ -9,6 +9,14 @@ class ContactController {
     ContactService contactService
 
     def list() {
-        render (contactService.list() as JSON)
+        List<Contact> all = contactService.list()
+        render(all.collect {
+            [
+                    firstName: it.firstName,
+                    lastName : it.lastName,
+                    groupName: it.groupName,
+                    phone    : it.phone
+            ]
+        } as JSON)
     }
 }
