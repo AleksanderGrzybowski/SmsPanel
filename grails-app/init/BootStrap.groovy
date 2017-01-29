@@ -1,13 +1,15 @@
+import groovy.util.logging.Log
 import smspanel.Contact
 import smspanel.Role
 import smspanel.User
 import smspanel.UserRole
 
+@Log
 class BootStrap {
 
     def init = { servletContext ->
         sampleUsers()
-        sampleContacts()
+        importContacts()
     }
 
     static void sampleUsers() {
@@ -18,20 +20,24 @@ class BootStrap {
             new UserRole(user: user, role: adminUserRole).save(flush: true)
         }
     }
-    
-    static void sampleContacts() {
-        new Contact(
-                firstName: 'John',
-                lastName: 'Doe',
-                groupName: 'A,W',
-                phone: '+48 123 456 789'
-        ).save(flush: true)
-        
-        new Contact(
-                firstName: 'Jan',
-                lastName: 'Kowalski',
-                groupName: 'A',
-                phone: '+48 987 654 321'
-        ).save(flush: true)
+
+
+    static void importContacts() {
+        log.info 'Importing contacts'
+
+        def contactsFile
+        if (System.getenv('CONTACTS')) {
+            contactsFile = new File(System.getenv('CONTACTS'))
+            log.info "Importing from external file ${contactsFile}"
+        } else {
+            contactsFile = System.getResource("/sample.csv")
+            log.info 'Importing sample'
+        }
+        contactsFile.text
+                .split('\n')
+                .findAll { String line -> line.trim() != '' }
+                .collect { String line -> line.split(';') }
+                .collect { [firstName: it[0], lastName: it[1], groupName: it[2], phone: it[3]] }
+                .each { new Contact(it).save(failOnError: true, flush: true) }
     }
 }
