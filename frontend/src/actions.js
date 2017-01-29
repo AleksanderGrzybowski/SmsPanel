@@ -13,6 +13,7 @@ const backendNotHealthy = () => ({type: 'BACKEND_HEALTH_CHECK_FAIL'});
 const backendHealthy = () => ({type: 'BACKEND_HEALTH_CHECK_SUCCESS'});
 
 const loadContacts = contacts => ({type: 'LOAD_CONTACTS', contacts});
+const loadQueue = queue => ({type: 'LOAD_QUEUE', queue});
 
 export const fetchContacts = () => (dispatch, getState) => {
     axios.get(`${backendUrl}/api/contacts`, authConfig(getState().login.token))
@@ -20,10 +21,17 @@ export const fetchContacts = () => (dispatch, getState) => {
         .catch((err) => console.log(err));
 };
 
+export const fetchQueue = () => (dispatch, getState) => {
+    axios.get(`${backendUrl}/api/queue`, authConfig(getState().login.token))
+        .then(({data}) => dispatch(loadQueue(data)))
+        .catch((err) => console.log(err));
+};
+
 export const loginSuccessful = (username, token) => (dispatch) => {
     dispatch({type: 'LOGIN_SUCCESSFULL', username, token});
     dispatch(changeView('main'));
     dispatch(fetchContacts());
+    dispatch(fetchQueue());
 };
 
 const loginError = () => ({type: 'LOGIN_ERROR'});

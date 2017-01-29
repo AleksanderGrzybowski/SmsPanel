@@ -14,6 +14,7 @@ class SmsQueueController {
         List<SmsQueueEntry> all = smsQueueService.list()
         render(all.collect {
             [
+                    id: it.id,
                     contact : [
                             firstName: it.contact.firstName,
                             lastName : it.contact.lastName

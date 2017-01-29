@@ -52,3 +52,13 @@ export const contacts = (state = initialStateContacts, action) => {
             return state;
     }
 };
+
+const initialStateQueue = [];
+export const queue = (state = initialStateQueue, action) => {
+    switch (action.type) {
+        case 'LOAD_QUEUE':
+            return action.queue;
+        default:
+            return state;
+    }
+};

@@ -54,7 +54,8 @@ export default class App extends Component {
                 {navbar}
                 <Row>
                     <Queue
-                        
+                        queue={this.props.queue}
+                        fetchQueue={this.props.fetchQueue}
                     />
                 </Row>
             </Grid>

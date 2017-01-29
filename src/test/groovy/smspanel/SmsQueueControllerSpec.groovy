@@ -37,6 +37,7 @@ class SmsQueueControllerSpec extends Specification {
         then:
         1 * smsQueueService.list() >> [sampleEntry]
         response.json.size() == 1
+        response.json[0].id == sampleEntry.id
         response.json[0].contact.firstName == sampleEntry.contact.firstName
         response.json[0].contact.lastName == sampleEntry.contact.lastName
         response.json[0].content == sampleEntry.content
