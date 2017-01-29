@@ -23,7 +23,7 @@ class BootStrap {
         new Contact(
                 firstName: 'John',
                 lastName: 'Doe',
-                groupName: 'A',
+                groupName: 'A,W',
                 phone: '+48 123 456 789'
         ).save(flush: true)
         
