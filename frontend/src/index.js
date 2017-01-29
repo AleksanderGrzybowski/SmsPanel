@@ -11,7 +11,8 @@ import {
     validateTokenAndLogIn,
     sendMessages,
     changeView,
-    fetchQueue
+    fetchQueue,
+    hideNotification
 } from './actions';
 import App from './App';
 import createLogger from 'redux-logger';
@@ -29,7 +30,8 @@ const mapDispatchToProps = (dispatch) => ({
     onLogout: () => dispatch(logout()),
     onViewChange: (viewName) => dispatch(changeView(viewName)),
     onSend: (messages) => dispatch(sendMessages(messages)),
-    fetchQueue: () => dispatch(fetchQueue())
+    fetchQueue: () => dispatch(fetchQueue()),
+    hideNotification: () => dispatch(hideNotification())
 });
 
 

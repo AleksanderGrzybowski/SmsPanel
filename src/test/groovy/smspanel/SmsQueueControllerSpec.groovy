@@ -62,6 +62,7 @@ class SmsQueueControllerSpec extends Specification {
         
         then:
         response.status == 200
+        response.json.sentCount == 2
         1 * smsQueueService.scheduleNewMessage(1, 'first message')
         1 * smsQueueService.scheduleNewMessage(2, 'second message')
         

@@ -32,6 +32,7 @@ class SmsQueueController {
         }
         
         response.status = 200
+        render ([sentCount: dto.messages.size()] as JSON)
     }
     
     static class ScheduleMessagesDto {

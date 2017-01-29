@@ -18,6 +18,9 @@ const loadQueue = queue => ({type: 'LOAD_QUEUE', queue});
 const messageSendingStart = () => ({type: 'MESSAGE_SENDING_START'});
 const messageSendingFinish = () => ({type: 'MESSAGE_SENDING_FINISH'});
 
+const showNotification = (bsClass, text) => ({type: 'SHOW_NOTIFICATION', text, bsClass});
+export const hideNotification = () => ({type: 'HIDE_NOTIFICATION'});
+
 export const fetchContacts = () => (dispatch, getState) => {
     axios.get(`${backendUrl}/api/contacts`, authConfig(getState().login.token))
         .then(({data}) => dispatch(loadContacts(data)))
@@ -81,6 +84,7 @@ export const sendMessages = (messages) => (dispatch, getState) => {
     dispatch(messageSendingStart());
     axios.post(`${backendUrl}/api/queue`, {messages}, authConfig(getState().login.token))
         .then(({data}) => {
+            dispatch(showNotification('success', `Pomyślnie wysłano ${data.sentCount} wiadomości`))
             dispatch(messagesSent());
             dispatch(messageSendingFinish());
         })

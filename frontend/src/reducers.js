@@ -1,6 +1,8 @@
 const initialStateView = {
     currentView: 'login',
-    sendingInProgress: false
+    sendingInProgress: false,
+    notification: '',
+    bsClass: ''
 };
 
 export const view = (state = initialStateView, action) => {
@@ -11,6 +13,10 @@ export const view = (state = initialStateView, action) => {
             return Object.assign({}, state, {sendingInProgress: true});
         case 'MESSAGE_SENDING_FINISH':
             return Object.assign({}, state, {sendingInProgress: false});
+        case 'SHOW_NOTIFICATION':
+            return Object.assign({}, state, {notification: action.text, bsClass: action.bsClass});
+        case 'HIDE_NOTIFICATION':
+            return Object.assign({}, state, {notification: '', bsClass: ''});
         default:
             return state;
     }

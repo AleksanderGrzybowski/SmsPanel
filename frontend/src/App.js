@@ -6,6 +6,7 @@ import ErrorPage from './smspanel/ErrorPage';
 import 'bootstrap/dist/css/bootstrap.css';
 import ContactManager from './ContactManager';
 import Queue from './Queue';
+import NotificationBox from './NotificationBox';
 
 export default class App extends Component {
     render() {
@@ -36,7 +37,7 @@ export default class App extends Component {
                 onViewChange={this.props.onViewChange}
             />
         );
-        
+
         const mainView = (
             <Grid fluid>
                 {navbar}
@@ -47,9 +48,18 @@ export default class App extends Component {
                         sendingInProgress={this.props.view.sendingInProgress}
                     />
                 </Row>
+                <Row style={{marginTop: 20}}>
+                    <Col md={8} mdOffset={2}>
+                        <NotificationBox
+                            text={this.props.view.notification}
+                            bsClass={this.props.view.bsClass}
+                            onHide={this.props.hideNotification}
+                        />
+                    </Col>
+                </Row>
             </Grid>
         );
-        
+
         const queueView = (
             <Grid fluid>
                 {navbar}
