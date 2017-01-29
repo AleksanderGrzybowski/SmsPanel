@@ -8,7 +8,8 @@ import {
     healthCheck,
     login as loginAction,
     logout,
-    validateTokenAndLogIn
+    validateTokenAndLogIn,
+    sendMessages
 } from './actions';
 import App from './App';
 import createLogger from 'redux-logger';
@@ -24,6 +25,7 @@ const mapStateToProps = (state) => state;
 const mapDispatchToProps = (dispatch) => ({
     onLogin: (username, password) => dispatch(loginAction(username, password)),
     onLogout: () => dispatch(logout()),
+    onSend: (messages) => dispatch(sendMessages(messages))
 });
 
 

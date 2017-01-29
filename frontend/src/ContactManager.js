@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Col, Table, Badge } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
+import NewMessageInput from './NewMessageInput';
 
 export default class ContactManager extends Component {
     constructor(props) {
@@ -14,13 +15,18 @@ export default class ContactManager extends Component {
     toggleSelected = (id) => {
         if (this.state.selectedContactIds.includes(id)) {
             this.setState({
-                selectedContactIds: this.state.selectedContactIds.filter(i => i != id)
+                selectedContactIds: this.state.selectedContactIds.filter(i => i !== id)
             });
         } else {
             this.setState({
                 selectedContactIds: this.state.selectedContactIds.concat([id])
             });
         }
+    };
+
+    send = (content) => {
+        const messages = this.state.selectedContactIds.map(id => ({contactId: id, content}));
+        this.props.onSend(messages);
     };
 
     render() {
@@ -58,6 +64,9 @@ export default class ContactManager extends Component {
                     {rows}
                     </tbody>
                 </Table>
+                <NewMessageInput
+                    onSend={this.send}
+                />
             </Col>
         );
     }

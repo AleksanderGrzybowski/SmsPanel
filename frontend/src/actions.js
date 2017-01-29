@@ -1,6 +1,12 @@
 import axios from 'axios';
 import backendUrl from './backendUrl';
 
+const authConfig = (token) => ({
+    headers: {
+        'Authorization': `Bearer ${token}`
+    }
+});
+
 const changeView = (view) => ({type: 'CHANGE_VIEW', view});
 
 const backendNotHealthy = () => ({type: 'BACKEND_HEALTH_CHECK_FAIL'});
@@ -21,12 +27,6 @@ export const loginSuccessful = (username, token) => (dispatch) => {
 };
 
 const loginError = () => ({type: 'LOGIN_ERROR'});
-
-const authConfig = (token) => ({
-    headers: {
-        'Authorization': `Bearer ${token}`
-    }
-});
 
 export const healthCheck = () => (dispatch) => {
     axios.get(`${backendUrl}/health`, {timeout: 10000})
@@ -62,4 +62,13 @@ export const validateTokenAndLogIn = (username, access_token) => (dispatch) => {
     axios.get(`${backendUrl}/api/validate`, authConfig(access_token))
         .then(() => dispatch(loginSuccessful(username, access_token)))
         .catch(() => dispatch(logout()));
+};
+
+const messagesSent = () => ({type: 'MESSAGES_SENT'});
+
+export const sendMessages = (messages) => (dispatch, getState) => {
+    console.log(messages);
+    axios.post(`${backendUrl}/api/queue`, {messages}, authConfig(getState().login.token))
+        .then(({data}) => dispatch(messagesSent()))
+        .catch((err) => console.log(err));
 };

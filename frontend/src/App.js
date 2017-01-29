@@ -35,7 +35,10 @@ export default class App extends Component {
                     logout={this.props.onLogout}
                 />
                 <Row>
-                    <ContactManager contacts={this.props.contacts}/>
+                    <ContactManager
+                        contacts={this.props.contacts}
+                        onSend={this.props.onSend}
+                    />
                 </Row>
             </Grid>
         );
