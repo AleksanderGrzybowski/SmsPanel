@@ -84,9 +84,13 @@ export const sendMessages = (messages) => (dispatch, getState) => {
     dispatch(messageSendingStart());
     axios.post(`${backendUrl}/api/queue`, {messages}, authConfig(getState().login.token))
         .then(({data}) => {
-            dispatch(showNotification('success', `Pomyślnie wysłano ${data.sentCount} wiadomości`))
+            dispatch(showNotification('success', `Pomyślnie wysłano ${data.sentCount} wiadomości`));
             dispatch(messagesSent());
             dispatch(messageSendingFinish());
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+            dispatch(showNotification('danger', 'Błąd przy wysyłaniu wiadomości'));
+            dispatch(messageSendingFinish());
+            console.log(err)
+        });
 };
