@@ -1,11 +1,16 @@
 const initialStateView = {
-    currentView: 'login'
+    currentView: 'login',
+    sendingInProgress: false
 };
 
 export const view = (state = initialStateView, action) => {
     switch (action.type) {
         case 'CHANGE_VIEW':
-            return {currentView: action.view};
+            return Object.assign({}, state, {currentView: action.view});
+        case 'MESSAGE_SENDING_START':
+            return Object.assign({}, state, {sendingInProgress: true});
+        case 'MESSAGE_SENDING_FINISH':
+            return Object.assign({}, state, {sendingInProgress: false});
         default:
             return state;
     }

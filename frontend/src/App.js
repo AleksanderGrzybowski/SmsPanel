@@ -44,6 +44,7 @@ export default class App extends Component {
                     <ContactManager
                         contacts={this.props.contacts}
                         onSend={this.props.onSend}
+                        sendingInProgress={this.props.view.sendingInProgress}
                     />
                 </Row>
             </Grid>

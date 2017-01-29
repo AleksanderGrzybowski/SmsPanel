@@ -66,6 +66,7 @@ export default class ContactManager extends Component {
                 </Table>
                 <NewMessageInput
                     onSend={this.send}
+                    sendingInProgress={this.props.sendingInProgress}
                 />
             </Col>
         );

@@ -24,6 +24,10 @@ export default class NewMessageInput extends Component {
             <span style={style}>(pozostało: {160 - this.state.text.length})</span>
         );
 
+        const buttonContent = this.props.sendingInProgress ? (
+                <i className="fa fa-spin fa-spinner"/>
+            ) : ( 'Wyślij!' );
+
         return (
             <form>
                 <FormGroup>
@@ -34,8 +38,14 @@ export default class NewMessageInput extends Component {
                         value={this.state.text}
                     />
                 </FormGroup>
-                <Button block bsStyle="primary" onClick={() => this.props.onSend(this.state.text)}>
-                    Wyślij
+                <Button
+                    block
+                    bsStyle="primary"
+                    bsSize="large"
+                    disabled={this.state.text.length === 0 || this.props.sendingInProgress}
+                    onClick={() => this.props.onSend(this.state.text)}
+                >
+                    {buttonContent}
                 </Button>
             </form>
         )

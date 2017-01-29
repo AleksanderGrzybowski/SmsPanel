@@ -15,6 +15,9 @@ const backendHealthy = () => ({type: 'BACKEND_HEALTH_CHECK_SUCCESS'});
 const loadContacts = contacts => ({type: 'LOAD_CONTACTS', contacts});
 const loadQueue = queue => ({type: 'LOAD_QUEUE', queue});
 
+const messageSendingStart = () => ({type: 'MESSAGE_SENDING_START'});
+const messageSendingFinish = () => ({type: 'MESSAGE_SENDING_FINISH'});
+
 export const fetchContacts = () => (dispatch, getState) => {
     axios.get(`${backendUrl}/api/contacts`, authConfig(getState().login.token))
         .then(({data}) => dispatch(loadContacts(data)))
@@ -75,8 +78,11 @@ export const validateTokenAndLogIn = (username, access_token) => (dispatch) => {
 const messagesSent = () => ({type: 'MESSAGES_SENT'});
 
 export const sendMessages = (messages) => (dispatch, getState) => {
-    console.log(messages);
+    dispatch(messageSendingStart());
     axios.post(`${backendUrl}/api/queue`, {messages}, authConfig(getState().login.token))
-        .then(({data}) => dispatch(messagesSent()))
+        .then(({data}) => {
+            dispatch(messagesSent());
+            dispatch(messageSendingFinish());
+        })
         .catch((err) => console.log(err));
 };
