@@ -1,3 +1,16 @@
+const initialStateView = {
+    currentView: 'login'
+};
+
+export const view = (state = initialStateView, action) => {
+    switch (action.type) {
+        case 'CHANGE_VIEW':
+            return {currentView: action.view};
+        default:
+            return state;
+    }
+};
+
 const initialStateLogin = {
     loggedIn: false,
     loginError: false,

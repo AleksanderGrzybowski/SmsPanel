@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import LoginForm from './smspanel/LoginForm';
-import { Grid, Row, Col} from 'react-bootstrap';
+import { Grid, Row, Col } from 'react-bootstrap';
 import PanelNavbar from './PanelNavbar';
 import ErrorPage from './smspanel/ErrorPage';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -11,22 +11,8 @@ export default class App extends Component {
         if (!this.props.health.healthy) {
             return <ErrorPage/>
         }
-        
-        const mainPanel = <ContactManager
-            contacts={this.props.contacts}
-        />;
 
-        return this.props.login.loggedIn ? (
-            <Grid fluid>
-                <PanelNavbar
-                    username={this.props.login.username}
-                    logout={this.props.onLogout}
-                />
-                <Row>
-                    {mainPanel}
-                </Row>
-            </Grid>
-        ) : (
+        const loginView = (
             <Grid>
                 <Row>
                     <Col md={6} mdOffset={3} xs={12}>
@@ -41,6 +27,27 @@ export default class App extends Component {
                 </Row>
             </Grid>
         );
+
+        const mainView = (
+            <Grid fluid>
+                <PanelNavbar
+                    username={this.props.login.username}
+                    logout={this.props.onLogout}
+                />
+                <Row>
+                    <ContactManager contacts={this.props.contacts}/>
+                </Row>
+            </Grid>
+        );
+
+        switch (this.props.view.currentView) {
+            case 'login':
+                return loginView;
+            case 'main':
+                return mainView;
+            default:
+                return <div>Not yet implemented</div>;
+        }
     }
 }
 

@@ -1,6 +1,8 @@
 import axios from 'axios';
 import backendUrl from './backendUrl';
 
+const changeView = (view) => ({type: 'CHANGE_VIEW', view});
+
 const backendNotHealthy = () => ({type: 'BACKEND_HEALTH_CHECK_FAIL'});
 const backendHealthy = () => ({type: 'BACKEND_HEALTH_CHECK_SUCCESS'});
 
@@ -14,6 +16,7 @@ export const fetchContacts = () => (dispatch, getState) => {
 
 export const loginSuccessful = (username, token) => (dispatch) => {
     dispatch({type: 'LOGIN_SUCCESSFULL', username, token});
+    dispatch(changeView('main'));
     dispatch(fetchContacts());
 };
 
@@ -52,6 +55,7 @@ export const logout = () => (dispatch) => {
     localStorage.removeItem('username');
     localStorage.removeItem('access_token');
     dispatch({type: 'LOGOUT'});
+    dispatch(changeView('login'));
 };
 
 export const validateTokenAndLogIn = (username, access_token) => (dispatch) => {

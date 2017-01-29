@@ -3,13 +3,12 @@ import ReactDOM from 'react-dom';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { connect, Provider } from 'react-redux';
 import thunk from 'redux-thunk';
-import { health, login, contacts} from './reducers';
+import { health, login, contacts, view } from './reducers';
 import {
     healthCheck,
     login as loginAction,
     logout,
-    validateTokenAndLogIn,
-    fetchContacts
+    validateTokenAndLogIn
 } from './actions';
 import App from './App';
 import createLogger from 'redux-logger';
@@ -17,7 +16,7 @@ import 'font-awesome-webpack';
 
 
 const store = createStore(
-    combineReducers({health, login, contacts}),
+    combineReducers({health, view, login, contacts}),
     applyMiddleware(thunk, createLogger())
 );
 
