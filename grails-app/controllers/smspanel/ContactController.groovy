@@ -12,6 +12,7 @@ class ContactController {
         List<Contact> all = contactService.list()
         render(all.collect {
             [
+                    id       : it.id,
                     firstName: it.firstName,
                     lastName : it.lastName,
                     groupName: it.groupName,
