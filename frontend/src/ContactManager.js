@@ -51,7 +51,7 @@ export default class ContactManager extends Component {
 
         return (
             <Col md={8} mdOffset={2}>
-                <Table>
+                <Table style={{userSelect: 'none', cursor: 'default'}}>
                     <thead>
                     <tr>
                         <th>Imię</th>
