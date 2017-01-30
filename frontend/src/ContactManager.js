@@ -27,6 +27,7 @@ export default class ContactManager extends Component {
     send = (content) => {
         const messages = this.state.selectedContactIds.map(id => ({contactId: id, content}));
         this.props.onSend(messages);
+        this.setState({selectedContactIds: []});
     };
 
     render() {
