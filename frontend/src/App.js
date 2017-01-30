@@ -32,7 +32,6 @@ export default class App extends Component {
 
         const navbar = (
             <PanelNavbar
-                username={this.props.login.username}
                 logout={this.props.onLogout}
                 onViewChange={this.props.onViewChange}
             />
