@@ -42,7 +42,7 @@ export default class NewMessageInput extends Component {
                     block
                     bsStyle="primary"
                     bsSize="large"
-                    disabled={this.state.text.length === 0 || this.props.sendingInProgress}
+                    disabled={this.state.text.length === 0 || this.props.sendingInProgress || this.props.sendingDisabled}
                     onClick={() => this.props.onSend(this.state.text)}
                 >
                     {buttonContent}

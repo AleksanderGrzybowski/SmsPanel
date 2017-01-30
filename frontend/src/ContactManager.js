@@ -65,6 +65,7 @@ export default class ContactManager extends Component {
                     </tbody>
                 </Table>
                 <NewMessageInput
+                    sendingDisabled={this.state.selectedContactIds.length === 0}
                     onSend={this.send}
                     sendingInProgress={this.props.sendingInProgress}
                 />
