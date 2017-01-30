@@ -59,6 +59,8 @@ export const contacts = (state = initialStateContacts, action) => {
     switch (action.type) {
         case 'LOAD_CONTACTS':
             return action.contacts;
+        case 'LOGOUT':
+            return initialStateContacts;
         default:
             return state;
     }
@@ -69,6 +71,8 @@ export const queue = (state = initialStateQueue, action) => {
     switch (action.type) {
         case 'LOAD_QUEUE':
             return action.queue;
+        case 'LOGOUT':
+            return initialStateQueue;
         default:
             return state;
     }
