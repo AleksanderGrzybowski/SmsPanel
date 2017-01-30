@@ -1,14 +1,14 @@
 import grails.util.Environment
 import smspanel.CorsFilter
 import smspanel.FakeSmsService
-import smspanel.MessageBirdSmsService
+import smspanel.BramkaSmsService
 
 // Place your Spring DSL code here
 beans = {
     corsFilter(CorsFilter)
     
     if (Environment.current == Environment.PRODUCTION) {
-        smsService(MessageBirdSmsService, System.getenv('API_KEY'), System.getenv('SOURCE_PHONE'))
+        smsService(BramkaSmsService, System.getenv('API_USERNAME'), System.getenv('API_PASSWORD'))
     }
     
     if (Environment.current == Environment.DEVELOPMENT) {
