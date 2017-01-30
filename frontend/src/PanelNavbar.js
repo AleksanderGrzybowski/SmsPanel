@@ -1,12 +1,12 @@
 import React from 'react';
 import { Navbar, NavItem, Nav } from 'react-bootstrap';
 
-const PanelNavbar = ({logout, onViewChange}) => {
+const PanelNavbar = ({currentView, logout, onViewChange}) => {
     return (
         <Navbar>
             <Nav>
-                <NavItem onClick={() => onViewChange('main')}>Kontakty</NavItem>
-                <NavItem onClick={() => onViewChange('queue')}>Kolejka</NavItem>
+                <NavItem active={currentView === 'main'} onClick={() => onViewChange('main')}>Kontakty</NavItem>
+                <NavItem active={currentView === 'queue'} onClick={() => onViewChange('queue')}>Kolejka</NavItem>
             </Nav>
             <Nav pullRight>
                 <NavItem onClick={logout} style={{marginRight: 40}}>
