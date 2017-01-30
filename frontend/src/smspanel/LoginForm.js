@@ -45,7 +45,7 @@ export default class LoginForm extends Component {
 
         const loginErrorMessage = (
             <ErrorAlert>
-                Invalid username or password, please try again.
+                Błędny login lub hasło, spróbuj ponownie.
             </ErrorAlert>
         );
 
@@ -56,7 +56,7 @@ export default class LoginForm extends Component {
                         type="text"
                         ref="loginInput"
                         value={this.state.username}
-                        placeholder={'Username'}
+                        placeholder={'Login'}
                         onChange={this.usernameChange}
                     />
                 </FormGroup>
@@ -65,7 +65,7 @@ export default class LoginForm extends Component {
                     <FormControl
                         type="password"
                         value={this.state.password}
-                        placeholder={'Password'}
+                        placeholder={'Hasło'}
                         onChange={this.passwordChange}
                     />
                 </FormGroup>
@@ -76,7 +76,7 @@ export default class LoginForm extends Component {
                         onClick={this.submitForm}
                         disabled={buttonDisabled}
                     >
-                        Login
+                        Zaloguj
                     </Button>
                 </FormGroup>
                 {this.props.loginError ? loginErrorMessage : null}
