@@ -8,7 +8,7 @@ export default class ContactManager extends Component {
         super(props);
 
         this.state = {
-            selectedContactIds: [1]
+            selectedContactIds: []
         }
     }
 
