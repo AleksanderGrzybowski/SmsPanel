@@ -35,6 +35,10 @@ class SmsQueueController {
         render ([sentCount: dto.messages.size()] as JSON)
     }
     
+    def accountBalance() {
+        render ([balance: smsQueueService.accountBalance().toString()] as JSON)
+    }
+    
     static class ScheduleMessagesDto {
         List<ScheduleSingleMessageDto> messages
     }

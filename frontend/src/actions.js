@@ -14,6 +14,7 @@ const backendHealthy = () => ({type: 'BACKEND_HEALTH_CHECK_SUCCESS'});
 
 const loadContacts = contacts => ({type: 'LOAD_CONTACTS', contacts});
 const loadQueue = queue => ({type: 'LOAD_QUEUE', queue});
+const loadBalance = balance => ({type: 'LOAD_BALANCE', balance});
 
 const messageSendingStart = () => ({type: 'MESSAGE_SENDING_START'});
 const messageSendingFinish = () => ({type: 'MESSAGE_SENDING_FINISH'});
@@ -30,6 +31,12 @@ export const fetchContacts = () => (dispatch, getState) => {
 export const fetchQueue = () => (dispatch, getState) => {
     axios.get(`${backendUrl}/api/queue`, authConfig(getState().login.token))
         .then(({data}) => dispatch(loadQueue(data)))
+        .catch((err) => console.log(err));
+};
+
+export const fetchBalance = () => (dispatch, getState) => {
+    axios.get(`${backendUrl}/api/accountBalance`, authConfig(getState().login.token))
+        .then(({data}) => dispatch(loadBalance(data.balance)))
         .catch((err) => console.log(err));
 };
 

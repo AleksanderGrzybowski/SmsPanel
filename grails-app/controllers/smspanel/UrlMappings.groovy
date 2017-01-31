@@ -11,6 +11,9 @@ class UrlMappings {
         "/api/queue"(controller: 'smsQueue') {
             action = [GET: 'list', POST: 'scheduleNewMessages']
         }
+        "/api/accountBalance"(controller: 'smsQueue') {
+            action = [GET: 'accountBalance']
+        }
 
         "500"(controller: 'error')
         "404"(view: '/notFound')

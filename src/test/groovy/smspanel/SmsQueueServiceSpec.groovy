@@ -124,4 +124,12 @@ class SmsQueueServiceSpec extends Specification {
         1 * smsService.send('message 1', '+48 123 456 789') >> false
         entry.status == MessageStatus.FAILED
     }
+    
+    def "should delegate returning balance to underlying service"() {
+        when:
+        service.accountBalance()
+        
+        then:
+        1 * smsService.accountBalance()
+    }
 }

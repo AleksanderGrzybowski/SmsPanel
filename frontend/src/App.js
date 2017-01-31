@@ -35,6 +35,8 @@ export default class App extends Component {
                 currentView={this.props.view.currentView}
                 logout={this.props.onLogout}
                 onViewChange={this.props.onViewChange}
+                fetchBalance={this.props.fetchBalance}
+                currentBalance={this.props.account.balance}
             />
         );
 

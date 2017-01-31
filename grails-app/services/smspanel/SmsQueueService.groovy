@@ -30,4 +30,8 @@ class SmsQueueService {
             it.save(failOnError: true)
         }
     }
+    
+    BigDecimal accountBalance() {
+        return smsService.accountBalance()
+    }
 }

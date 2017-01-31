@@ -67,5 +67,14 @@ class SmsQueueControllerSpec extends Specification {
         1 * smsQueueService.scheduleNewMessage(2, 'second message')
         
     }
-
+    
+    def "should retrieve account balance, two decimal places"() {
+        when:
+        controller.accountBalance()
+        
+        then:
+        smsQueueService.accountBalance() >> new BigDecimal('10.50')
+        response.status == 200
+        response.json.balance == '10.50'
+    }
 }

@@ -22,6 +22,16 @@ export const view = (state = initialStateView, action) => {
     }
 };
 
+const initialStateAccount = {balance: '...'};
+export const account = (state = initialStateAccount, action) => {
+    switch (action.type) {
+        case 'LOAD_BALANCE':
+            return {balance: action.balance};
+        default:
+            return state;
+    }
+};
+
 const initialStateLogin = {
     loggedIn: false,
     loginError: false,

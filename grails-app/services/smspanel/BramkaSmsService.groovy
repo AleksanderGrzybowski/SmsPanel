@@ -4,6 +4,8 @@ import grails.transaction.Transactional
 import groovyx.net.http.ContentType
 import groovyx.net.http.HTTPBuilder
 
+import java.math.RoundingMode
+
 @Transactional
 class BramkaSmsService implements SmsService {
 
@@ -46,5 +48,26 @@ class BramkaSmsService implements SmsService {
             log.error("Sending failed, response = ${result}")
             return false
         }
+    }
+
+    @Override
+    BigDecimal accountBalance() {
+        String result = ''
+
+        new HTTPBuilder("https://api.gsmservice.pl/v5/balance.php").post( // yes, POST :(
+                body: [
+                        login: apiUsername,
+                        pass : apiPassword
+                ],
+                requestContentType: ContentType.URLENC
+        ) { response, reader ->
+            result = reader.toString()
+        }
+        
+        if (!result.startsWith('OK')) {
+            throw new AssertionError()
+        }
+        
+        return new BigDecimal(result.split("\\|")[2]).setScale(2, RoundingMode.CEILING)
     }
 }
