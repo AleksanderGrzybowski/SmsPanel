@@ -101,7 +101,7 @@ export default class ContactManager extends Component {
 
         return (
             <Col md={8} mdOffset={2}>
-                <Table style={{userSelect: 'none', cursor: 'default'}}>
+                <Table>
                     <thead>
                     <tr>
                         <th>Imię</th>
@@ -113,7 +113,7 @@ export default class ContactManager extends Component {
                     {rows}
                     </tbody>
                 </Table>
-                <div style={{marginBottom: 10}}>
+                <div style={{marginBottom: 10, userSelect: 'none'}}>
                     <span style={{marginRight: 10}}>Zaznacz grupowo:</span>
                     {groupSelect}
                 </div>
