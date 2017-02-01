@@ -37,13 +37,4 @@ class SmsQueueController {
     def accountBalance() {
         render ([balance: smsQueueService.accountBalance().toString()] as JSON)
     }
-    
-    static class ScheduleMessagesDto {
-        List<ScheduleSingleMessageDto> messages
-    }
-    
-    static class ScheduleSingleMessageDto {
-        Long contactId
-        String content
-    }
 }
