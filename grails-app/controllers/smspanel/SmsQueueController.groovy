@@ -2,6 +2,7 @@ package smspanel
 
 import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
+import grails.validation.ValidationException
 
 import java.text.SimpleDateFormat
 
@@ -26,6 +27,10 @@ class SmsQueueController {
     }
     
     def scheduleNewMessages(ScheduleMessagesDto dto) {
+        if (dto.hasErrors()) {
+            throw new ValidationException('', dto.errors)
+        }
+        
         dto.messages.each {
             smsQueueService.scheduleNewMessage(it.contactId, it.content)
         }
