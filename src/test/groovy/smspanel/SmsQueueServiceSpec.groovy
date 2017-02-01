@@ -19,8 +19,7 @@ class SmsQueueServiceSpec extends Specification {
         given:
         SmsQueueEntry entry1 = new SmsQueueEntry(
                 contact: new Contact(
-                        firstName: 'John',
-                        lastName: 'Doe',
+                        name: 'John',
                         groups: 'W',
                         phone: '+48 123 456 789'
                 ).save(),
@@ -30,8 +29,7 @@ class SmsQueueServiceSpec extends Specification {
         ).save()
         SmsQueueEntry entry2 = new SmsQueueEntry(
                 contact: new Contact(
-                        firstName: 'Mark',
-                        lastName: 'Smith',
+                        name: 'Mark',
                         groups: 'A',
                         phone: '+48 987 654 321'
                 ).save(),
@@ -50,8 +48,7 @@ class SmsQueueServiceSpec extends Specification {
     def "should create new sms queue entry, to schedule new message"() {
         given:
         Contact contact = new Contact(
-                firstName: 'Mark',
-                lastName: 'Smith',
+                name: 'Mark',
                 groups: 'A',
                 phone: '+48 987 654 321'
         ).save()
@@ -70,8 +67,7 @@ class SmsQueueServiceSpec extends Specification {
     def "should send message and, if it was successfully sent, set SENT status"() {
         given:
         Contact contact = new Contact(
-                firstName: 'John',
-                lastName: 'Doe',
+                name: 'John',
                 groups: 'W',
                 phone: '+48 123 456 789'
         ).save()
@@ -99,8 +95,7 @@ class SmsQueueServiceSpec extends Specification {
     def "should send message and, if it was not successfully sent, set FAILED status"() {
         given:
         Contact contact = new Contact(
-                firstName: 'John',
-                lastName: 'Doe',
+                name: 'John',
                 groups: 'W',
                 phone: '+48 123 456 789'
         ).save()

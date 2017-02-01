@@ -12,11 +12,10 @@ class ContactController {
         List<Contact> all = contactService.list()
         render(all.collect {
             [
-                    id       : it.id,
-                    firstName: it.firstName,
-                    lastName : it.lastName,
-                    groups   : it.groups,
-                    phone    : it.phone
+                    id    : it.id,
+                    name  : it.name,
+                    groups: it.groups,
+                    phone : it.phone
             ]
         } as JSON)
     }

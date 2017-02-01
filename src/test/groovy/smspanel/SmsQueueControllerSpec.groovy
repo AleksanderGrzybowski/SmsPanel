@@ -16,8 +16,7 @@ class SmsQueueControllerSpec extends Specification {
 
     def sampleEntry = new SmsQueueEntry(
             contact: new Contact(
-                    firstName: 'John',
-                    lastName: 'Doe',
+                    name: 'John',
                     groups: 'W',
                     phone: '+48 123 456 789'
             ),
@@ -38,8 +37,7 @@ class SmsQueueControllerSpec extends Specification {
         1 * smsQueueService.list() >> [sampleEntry]
         response.json.size() == 1
         response.json[0].id == sampleEntry.id
-        response.json[0].contact.firstName == sampleEntry.contact.firstName
-        response.json[0].contact.lastName == sampleEntry.contact.lastName
+        response.json[0].contact.name == sampleEntry.contact.name
         response.json[0].content == sampleEntry.content
         response.json[0].status == sampleEntry.status.name()
         response.json[0].dateSent == new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(sampleEntry.dateSent)

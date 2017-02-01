@@ -17,8 +17,7 @@ class ContactControllerSpec extends Specification {
     def "should list all contacts with correct format"() {
         given:
         Contact sampleContact = new Contact(
-                firstName: 'John',
-                lastName: 'Doe',
+                name: 'John',
                 groups: 'W',
                 phone: '+48 123 456 789'
         ).save()
@@ -30,8 +29,7 @@ class ContactControllerSpec extends Specification {
         1 * contactService.list() >> [sampleContact]
         response.json.size() == 1
         response.json[0].id == sampleContact.id
-        response.json[0].firstName == sampleContact.firstName
-        response.json[0].lastName == sampleContact.lastName
+        response.json[0].name == sampleContact.name
         response.json[0].groups == sampleContact.groups
         response.json[0].phone == sampleContact.phone
     }

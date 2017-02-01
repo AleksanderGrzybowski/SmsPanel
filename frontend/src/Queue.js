@@ -40,7 +40,7 @@ export default class Queue extends Component {
         const rows = this.slicePage(this.props.queue).map(element => (
             <tr key={element.id}>
                 <td>{element.dateSent}</td>
-                <td>{element.contact.firstName} {element.contact.lastName}</td>
+                <td>{element.contact.name}</td>
                 <td>{element.content}</td>
                 <td>{statusCell(element.status)}</td>
             </tr>
@@ -80,7 +80,7 @@ export default class Queue extends Component {
                     <thead>
                     <tr>
                         <th>Data wysłania</th>
-                        <th>Imię i nazwisko</th>
+                        <th>Imię</th>
                         <th>Treść</th>
                         <th>Status</th>
                     </tr>

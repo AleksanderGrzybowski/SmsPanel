@@ -82,8 +82,7 @@ export default class ContactManager extends Component {
                 className={isContactSelected(contact.id) && 'success'}
                 onClick={() => this.toggleSelected(contact.id)}
             >
-                <td>{contact.firstName}</td>
-                <td>{contact.lastName}</td>
+                <td>{contact.name}</td>
                 <td>{groupCell(contact.groups)}</td>
                 <td>{contact.phone}</td>
             </tr>
@@ -106,7 +105,6 @@ export default class ContactManager extends Component {
                     <thead>
                     <tr>
                         <th>Imię</th>
-                        <th>Nazwisko</th>
                         <th>Grupa</th>
                         <th>Nr telefonu</th>
                     </tr>

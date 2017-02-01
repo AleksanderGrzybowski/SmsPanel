@@ -16,8 +16,7 @@ class SmsQueueController {
             [
                     id: it.id,
                     contact : [
-                            firstName: it.contact.firstName,
-                            lastName : it.contact.lastName
+                            name: it.contact.name
                     ],
                     content : it.content,
                     status  : it.status.name(),

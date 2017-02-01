@@ -2,8 +2,7 @@ package smspanel
 
 class Contact {
 
-    String firstName
-    String lastName
+    String name
     
     String groups
     String phone

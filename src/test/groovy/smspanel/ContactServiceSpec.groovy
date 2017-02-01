@@ -10,8 +10,8 @@ class ContactServiceSpec extends Specification {
 
     def "should list all contacts"() {
         given:
-        Contact c1 = new Contact(firstName: 'John').save(validate: false)
-        Contact c2 = new Contact(firstName: 'Tom').save(validate: false)
+        Contact c1 = new Contact(name: 'John').save(validate: false)
+        Contact c2 = new Contact(name: 'Tom').save(validate: false)
 
         expect:
         service.list() == [c1, c2]
