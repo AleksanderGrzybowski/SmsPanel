@@ -14,7 +14,7 @@ export default class ContactManager extends Component {
     }
 
     getAllGroups() {
-        const allGroupsRepeating = this.props.contacts.map(contact => contact.groupName.split(','))
+        const allGroupsRepeating = this.props.contacts.map(contact => contact.groups.split(','))
             .reduce((left, right) => [...left, ...right], []);
 
         return [...(new Set(allGroupsRepeating))].sort();
@@ -40,7 +40,7 @@ export default class ContactManager extends Component {
         let selectedGroups = this.state.selectedGroups;
         let selectedContactIds = this.state.selectedContactIds;
 
-        const filterByGroup = () => this.props.contacts.filter(contact => contact.groupName.includes(group));
+        const filterByGroup = () => this.props.contacts.filter(contact => contact.groups.includes(group));
 
         if (this.isGroupSelected(group)) {
             selectedGroups = selectedGroups.filter(g => g !== group);
@@ -70,7 +70,7 @@ export default class ContactManager extends Component {
     };
 
     render() {
-        const groupCell = (groupName) => groupName.split(',').map(group => (
+        const groupCell = (groups) => groups.split(',').map(group => (
             <Badge key={group} style={{marginRight: 5}}>{group}</Badge>
         ));
 
@@ -84,7 +84,7 @@ export default class ContactManager extends Component {
             >
                 <td>{contact.firstName}</td>
                 <td>{contact.lastName}</td>
-                <td>{groupCell(contact.groupName)}</td>
+                <td>{groupCell(contact.groups)}</td>
                 <td>{contact.phone}</td>
             </tr>
         ));

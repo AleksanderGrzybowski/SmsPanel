@@ -18,7 +18,7 @@ class SmsQueueControllerSpec extends Specification {
             contact: new Contact(
                     firstName: 'John',
                     lastName: 'Doe',
-                    groupName: 'W',
+                    groups: 'W',
                     phone: '+48 123 456 789'
             ),
             content: 'message 1',

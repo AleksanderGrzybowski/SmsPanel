@@ -19,7 +19,7 @@ class ContactControllerSpec extends Specification {
         Contact sampleContact = new Contact(
                 firstName: 'John',
                 lastName: 'Doe',
-                groupName: 'W',
+                groups: 'W',
                 phone: '+48 123 456 789'
         ).save()
         
@@ -32,7 +32,7 @@ class ContactControllerSpec extends Specification {
         response.json[0].id == sampleContact.id
         response.json[0].firstName == sampleContact.firstName
         response.json[0].lastName == sampleContact.lastName
-        response.json[0].groupName == sampleContact.groupName
+        response.json[0].groups == sampleContact.groups
         response.json[0].phone == sampleContact.phone
     }
 }

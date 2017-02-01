@@ -15,7 +15,7 @@ class ContactController {
                     id       : it.id,
                     firstName: it.firstName,
                     lastName : it.lastName,
-                    groupName: it.groupName,
+                    groups   : it.groups,
                     phone    : it.phone
             ]
         } as JSON)

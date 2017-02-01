@@ -37,7 +37,7 @@ class BootStrap {
                 .split('\n')
                 .findAll { String line -> line.trim() != '' }
                 .collect { String line -> line.split(';') }
-                .collect { [firstName: it[0], lastName: it[1], groupName: it[2], phone: it[3]] }
+                .collect { [firstName: it[0], lastName: it[1], groups: it[2], phone: it[3]] }
                 .each { new Contact(it).save(failOnError: true, flush: true) }
     }
 }

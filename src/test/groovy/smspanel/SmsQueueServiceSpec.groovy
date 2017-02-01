@@ -21,7 +21,7 @@ class SmsQueueServiceSpec extends Specification {
                 contact: new Contact(
                         firstName: 'John',
                         lastName: 'Doe',
-                        groupName: 'W',
+                        groups: 'W',
                         phone: '+48 123 456 789'
                 ).save(),
                 content: 'message 1',
@@ -32,7 +32,7 @@ class SmsQueueServiceSpec extends Specification {
                 contact: new Contact(
                         firstName: 'Mark',
                         lastName: 'Smith',
-                        groupName: 'A',
+                        groups: 'A',
                         phone: '+48 987 654 321'
                 ).save(),
                 content: 'message 2',
@@ -52,7 +52,7 @@ class SmsQueueServiceSpec extends Specification {
         Contact contact = new Contact(
                 firstName: 'Mark',
                 lastName: 'Smith',
-                groupName: 'A',
+                groups: 'A',
                 phone: '+48 987 654 321'
         ).save()
         
@@ -72,7 +72,7 @@ class SmsQueueServiceSpec extends Specification {
         Contact contact = new Contact(
                 firstName: 'John',
                 lastName: 'Doe',
-                groupName: 'W',
+                groups: 'W',
                 phone: '+48 123 456 789'
         ).save()
         SmsQueueEntry entry = new SmsQueueEntry(
@@ -101,7 +101,7 @@ class SmsQueueServiceSpec extends Specification {
         Contact contact = new Contact(
                 firstName: 'John',
                 lastName: 'Doe',
-                groupName: 'W',
+                groups: 'W',
                 phone: '+48 123 456 789'
         ).save()
         SmsQueueEntry entry = new SmsQueueEntry(
