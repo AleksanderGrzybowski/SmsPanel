@@ -90,8 +90,8 @@ const messagesSent = () => ({type: 'MESSAGES_SENT'});
 export const sendMessages = (messages) => (dispatch, getState) => {
     dispatch(messageSendingStart());
     axios.post(`${backendUrl}/api/queue`, {messages}, authConfig(getState().login.token))
-        .then(({data}) => {
-            dispatch(showNotification('success', `Pomyślnie zakolejkowano ${data.sentCount} wiadomości`));
+        .then(() => {
+            dispatch(changeView('queue'));
             dispatch(messagesSent());
             dispatch(messageSendingFinish());
         })

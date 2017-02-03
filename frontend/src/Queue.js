@@ -28,14 +28,12 @@ export default class Queue extends Component {
     }
 
     render() {
-        const statusCell = (status) => {
-            const mapping = {
-                SENT: {bsClass: 'success', text: 'Wysłana'},
-                PENDING: {bsClass: 'default', text: 'Oczekuje'},
-                FAILED: {bsClass: 'danger', text: 'Niepowodzenie'}
-            };
-            return <Label bsStyle={mapping[status].bsClass}>{mapping[status].text}</Label>
-        };
+        const statusCell = (status) => ( {
+                PENDING: <i style={{fontSize: 15}} className="fa fa-spin fa-spinner"/>,
+                SENT: <Label bsStyle="success">Wysłana</Label>,
+                FAILED: <Label bsStyle="danger">Niedostarczono</Label>,
+            }[status]
+        );
 
         const rows = this.slicePage(this.props.queue).map(element => (
             <tr key={element.id}>
