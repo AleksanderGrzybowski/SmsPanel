@@ -10,11 +10,15 @@ import spock.lang.Specification
 class SmsQueueServiceSpec extends Specification {
 
     SmsService smsService
-    
+    MessageSanitizationService messageSanitizationService
+
     void setup() {
         service.smsService = smsService = Mock(SmsService)
+        service.messageSanitizationService = messageSanitizationService = Mock(MessageSanitizationService) {
+            sanitize(_) >> { String message -> message }
+        }
     }
-    
+
     void "should list all queue entries, newest on the top"() {
         given:
         SmsQueueEntry entry1 = new SmsQueueEntry(
@@ -44,7 +48,7 @@ class SmsQueueServiceSpec extends Specification {
         then:
         entries == [entry1, entry2]
     }
-    
+
     def "should create new sms queue entry, to schedule new message"() {
         given:
         Contact contact = new Contact(
@@ -52,10 +56,10 @@ class SmsQueueServiceSpec extends Specification {
                 groups: 'A',
                 phone: '+48 987 654 321'
         ).save()
-        
+
         when:
         service.scheduleNewMessage(contact.id, 'Hello')
-        
+
         then:
         SmsQueueEntry.count() == 1
         SmsQueueEntry entry = SmsQueueEntry.first()
@@ -63,7 +67,7 @@ class SmsQueueServiceSpec extends Specification {
         entry.content == 'Hello'
         entry.status == MessageStatus.PENDING
     }
-    
+
     def "should send message and, if it was successfully sent, set SENT status"() {
         given:
         Contact contact = new Contact(
@@ -83,15 +87,15 @@ class SmsQueueServiceSpec extends Specification {
                 status: MessageStatus.SENT,
                 dateSent: new Date()
         ).save()
-        
+
         when:
         service.sendAllPendingMessages()
-        
-        then: 
+
+        then:
         1 * smsService.send('message 1', '+48 123 456 789') >> true
         entry.status == MessageStatus.SENT
     }
-    
+
     def "should send message and, if it was not successfully sent, set FAILED status"() {
         given:
         Contact contact = new Contact(
@@ -119,11 +123,11 @@ class SmsQueueServiceSpec extends Specification {
         1 * smsService.send('message 1', '+48 123 456 789') >> false
         entry.status == MessageStatus.FAILED
     }
-    
+
     def "should delegate returning balance to underlying service"() {
         when:
         service.accountBalance()
-        
+
         then:
         1 * smsService.accountBalance()
     }

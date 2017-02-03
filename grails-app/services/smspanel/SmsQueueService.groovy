@@ -6,6 +6,7 @@ import grails.transaction.Transactional
 class SmsQueueService {
     
     SmsService smsService
+    MessageSanitizationService messageSanitizationService
 
     List<SmsQueueEntry> list() {
         SmsQueueEntry.list().sort { a, b -> b.dateSent <=> a.dateSent }
@@ -14,7 +15,7 @@ class SmsQueueService {
     void scheduleNewMessage(Long contactId, String content) {
         new SmsQueueEntry(
                 contact: Contact.findById(contactId),
-                content: content,
+                content: messageSanitizationService.sanitize(content),
                 status: MessageStatus.PENDING,
                 dateSent: new Date()
         ).save(failOnError: true)
