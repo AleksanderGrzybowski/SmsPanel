@@ -74,14 +74,22 @@ export default class ContactManager extends Component {
             <Badge key={group} style={{marginRight: 5}}>{group}</Badge>
         ));
 
+        const checkCell = (checked) => (
+            <i
+                className="fa fa-check"
+                style={{cursor: 'pointer', color: checked ? '#337ab7' : 'lightgray'}}
+            />
+        );
+
         const isContactSelected = (id) => this.state.selectedContactIds.includes(id);
 
         const rows = this.props.contacts.map(contact => (
             <tr
                 key={contact.id}
-                className={isContactSelected(contact.id) && 'success'}
+                className={isContactSelected(contact.id) && 'info'}
                 onClick={() => this.toggleSelected(contact.id)}
             >
+                <td className="col-md-1">{checkCell(isContactSelected(contact.id))}</td>
                 <td>{contact.name}</td>
                 <td>{groupCell(contact.groups)}</td>
                 <td>{contact.phone}</td>
@@ -90,7 +98,7 @@ export default class ContactManager extends Component {
 
         const groupSelect = this.getAllGroups().map(group => (
             <Badge
-                bsClass={'badge ' + (this.isGroupSelected(group) && 'alert-success')}
+                bsClass={'badge ' + (this.isGroupSelected(group) && 'alert-info')}
                 key={group}
                 onClick={() => this.toggleGroup(group)}
                 style={{cursor: 'pointer', marginRight: 5}}
@@ -104,6 +112,7 @@ export default class ContactManager extends Component {
                 <Table>
                     <thead>
                     <tr>
+                        <th> </th>
                         <th>Imię</th>
                         <th>Grupa</th>
                         <th>Nr telefonu</th>
