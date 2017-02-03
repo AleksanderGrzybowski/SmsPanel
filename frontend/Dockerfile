@@ -12,7 +12,7 @@ RUN apt-get update && \
     npm install && npm run build && \
     cp -r build/* /usr/local/apache2/htdocs && \
     cp run.sh / && \
-    rm -rf /frontend
+    rm -rf /frontend /root/.npm
 
 WORKDIR /
 CMD ./run.sh
