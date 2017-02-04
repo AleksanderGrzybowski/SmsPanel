@@ -68,7 +68,7 @@ class SmsQueueServiceSpec extends Specification {
         entry.status == MessageStatus.PENDING
     }
 
-    def "should send message and, if it was successfully sent, set SENT status"() {
+    def "should send message, and, if it was successfully sent, set SENT status"() {
         given:
         Contact contact = new Contact(
                 name: 'John',

@@ -12,8 +12,7 @@ class SmsQueueController {
     SmsQueueService smsQueueService
 
     def list() {
-        List<SmsQueueEntry> all = smsQueueService.list()
-        render(all.collect {
+        render(smsQueueService.list().collect {
             [
                     id: it.id,
                     contact : [
@@ -35,7 +34,6 @@ class SmsQueueController {
             smsQueueService.scheduleNewMessage(it.contactId, it.content)
         }
         
-        response.status = 200
         render ([sentCount: dto.messages.size()] as JSON)
     }
     

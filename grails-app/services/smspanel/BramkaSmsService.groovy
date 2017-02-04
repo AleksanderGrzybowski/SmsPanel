@@ -9,6 +9,9 @@ import java.math.RoundingMode
 @Transactional
 class BramkaSmsService implements SmsService {
 
+    static final String API_SEND_URL = "https://api.gsmservice.pl/v5/send.php"
+    static final String API_BALANCE_URL = "https://api.gsmservice.pl/v5/balance.php"
+    
     String apiUsername
     String apiPassword
 
@@ -28,7 +31,7 @@ class BramkaSmsService implements SmsService {
 
         String result = ''
 
-        new HTTPBuilder("https://api.gsmservice.pl/v5/send.php").post(
+        new HTTPBuilder(API_SEND_URL).post(
                 body: [
                         login    : apiUsername,
                         pass     : apiPassword,
@@ -54,7 +57,7 @@ class BramkaSmsService implements SmsService {
     BigDecimal accountBalance() {
         String result = ''
 
-        new HTTPBuilder("https://api.gsmservice.pl/v5/balance.php").post( // yes, POST :(
+        new HTTPBuilder(API_BALANCE_URL).post( // yes, POST :(
                 body: [
                         login: apiUsername,
                         pass : apiPassword

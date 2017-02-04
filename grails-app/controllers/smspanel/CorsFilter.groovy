@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse
  * I'm not sure if this is entirely correct from browser point of view.
  */
 @Order(Ordered.HIGHEST_PRECEDENCE)
-public class CorsFilter extends OncePerRequestFilter {
+class CorsFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest req, HttpServletResponse resp, FilterChain chain)

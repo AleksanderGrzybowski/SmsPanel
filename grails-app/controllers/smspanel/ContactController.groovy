@@ -9,8 +9,7 @@ class ContactController {
     ContactService contactService
 
     def list() {
-        List<Contact> all = contactService.list()
-        render(all.collect {
+        render(contactService.list().collect {
             [
                     id    : it.id,
                     name  : it.name,
