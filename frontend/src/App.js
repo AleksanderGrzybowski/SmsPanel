@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import LoginForm from './smspanel/LoginForm';
 import { Grid, Row, Col } from 'react-bootstrap';
-import PanelNavbar from './PanelNavbar';
+import PanelNavbar from './smspanel/PanelNavbar';
 import ErrorPage from './smspanel/ErrorPage';
-import 'bootstrap/dist/css/bootstrap.css';
-import ContactManager from './ContactManager';
-import Queue from './Queue';
-import NotificationBox from './NotificationBox';
+import ContactManager from './smspanel/ContactManager';
+import Queue from './smspanel/Queue';
+import NotificationBox from './smspanel/NotificationBox';
 
 export default class App extends Component {
     render() {

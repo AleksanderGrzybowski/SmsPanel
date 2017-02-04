@@ -17,6 +17,7 @@ import {
 } from './actions';
 import App from './App';
 import createLogger from 'redux-logger';
+import 'bootstrap/dist/css/bootstrap.css';
 import 'font-awesome-webpack';
 
 

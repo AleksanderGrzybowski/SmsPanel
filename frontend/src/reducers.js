@@ -41,7 +41,7 @@ const initialStateLogin = {
 
 export const login = (state = initialStateLogin, action) => {
     switch (action.type) {
-        case 'LOGIN_SUCCESSFULL':
+        case 'LOGIN_SUCCESSFUL':
             return {loggedIn: true, loginError: false, username: action.username, token: action.token};
         case 'LOGIN_ERROR':
             return Object.assign({}, state, initialStateLogin, {loginError: true});

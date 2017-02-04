@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Col, Table, Badge } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.css';
 import NewMessageInput from './NewMessageInput';
 
 export default class ContactManager extends Component {
@@ -25,15 +24,12 @@ export default class ContactManager extends Component {
     }
 
     toggleSelected = (id) => {
-        if (this.state.selectedContactIds.includes(id)) {
-            this.setState({
-                selectedContactIds: this.state.selectedContactIds.filter(i => i !== id)
-            });
-        } else {
-            this.setState({
-                selectedContactIds: this.state.selectedContactIds.concat([id])
-            });
-        }
+        this.setState({
+            selectedContactIds: this.state.selectedContactIds.includes(id) ? (
+                    this.state.selectedContactIds.filter(i => i !== id)
+                ) : (
+                    this.state.selectedContactIds.concat([id])                )
+        });
     };
 
     toggleGroup = (group) => {
@@ -66,6 +62,7 @@ export default class ContactManager extends Component {
     send = (content) => {
         const messages = this.state.selectedContactIds.map(id => ({contactId: id, content}));
         this.props.onSend(messages);
+
         this.setState({selectedContactIds: [], selectedGroups: []});
     };
 

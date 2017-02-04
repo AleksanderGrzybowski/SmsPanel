@@ -28,6 +28,8 @@ export default class NewMessageInput extends Component {
                 <i className="fa fa-spin fa-spinner"/>
             ) : ( 'Wyślij!' );
 
+        const formDisabled = this.state.text.length === 0 || this.props.sendingInProgress || this.props.sendingDisabled;
+        
         return (
             <form>
                 <FormGroup>
@@ -42,7 +44,7 @@ export default class NewMessageInput extends Component {
                     block
                     bsStyle="primary"
                     bsSize="large"
-                    disabled={this.state.text.length === 0 || this.props.sendingInProgress || this.props.sendingDisabled}
+                    disabled={formDisabled}
                     onClick={() => this.props.onSend(this.state.text)}
                 >
                     {buttonContent}

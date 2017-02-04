@@ -1,11 +1,11 @@
 import React from 'react';
-import { Alert } from 'react-bootstrap';
+import { ErrorAlert } from './ErrorAlert';
 
 const ErrorPage = () => (
-    <Alert bsStyle="warning">
+    <ErrorAlert>
         <h1 className="text-center">Oops, something went wrong</h1>
         <p className="text-center">Please try again later.</p>
-    </Alert>
+    </ErrorAlert>
 );
 
 export default ErrorPage;
