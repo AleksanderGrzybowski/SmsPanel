@@ -1,5 +1,5 @@
 import React from 'react';
-import { ErrorAlert } from './ErrorAlert';
+import ErrorAlert from './ErrorAlert';
 
 const ErrorPage = () => (
     <ErrorAlert>
