@@ -12,7 +12,4 @@ classes/
 .classpath
 frontend/node_modules
 frontend/build
-src/main/resources/public
-calculatorBot/node_modules
-answerBot/bin/
-answerBot/obj/
+.env

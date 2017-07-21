@@ -1,0 +1,22 @@
+version: '2'
+services:
+  frontend:
+    image: smspanel-frontend
+    build: frontend
+    environment:
+      - BACKEND_URL=${BACKEND_URL}
+    ports:
+      - 80:80
+      
+  backend:
+    image: smspanel-backend
+    build: .
+    ports:
+      - 8080:8080
+    environment:
+      - API_USERNAME=${API_USERNAME}
+      - API_PASSWORD=${API_PASSWORD}
+      - CONTACTS_CSV=/contacts.csv
+      - USERS=${USERS}
+    volumes:
+      - ${CONTACTS_FILE}:/contacts.csv

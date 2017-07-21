@@ -50,15 +50,18 @@ class BootStrap {
     private void importContacts() {
         log.info 'Importing contacts'
 
-        def contactsFile
-        if (System.getenv('CONTACTS_CSV')) {
-            contactsFile = new File(System.getenv('CONTACTS_CSV'))
-            log.info "Importing from external file ${contactsFile}"
+        String contactsFileText
+        String filename = System.getenv('CONTACTS_CSV')
+        
+        if (filename) {
+            log.info "Importing from external file ${filename}"
+            contactsFileText = new File(filename).text
         } else {
-            contactsFile = System.getResource("/sample.csv")
             log.info 'Importing sample'
+            contactsFileText = sampleCsv()
         }
-        contactsFile.text
+        
+        contactsFileText
                 .split('\n')
                 .findAll { String line -> line.trim() != '' }
                 .collect { String line -> line.split(';') }
@@ -73,5 +76,20 @@ class BootStrap {
         } catch (Exception e) {
             throw new RuntimeException('Error accessing sms provider api', e)
         }
+    }
+    
+    private String sampleCsv() {
+        '''
+Nora James;A;48123456789
+Kelli Hollowa;B;48123456789
+Tamara Barton;A,B;48123456789
+Myra Cruz;C,A;48123456789
+Elmer Page;C,B;48123456789
+Delores Garcia;A,B,C;48123456789
+Jordan Holland;C;48123456789
+Sharon Fleming;D;48123456789
+Marion Silva;D,A;48123456789
+Theodore Shaw;B,A;48123456789
+'''
     }
 }
