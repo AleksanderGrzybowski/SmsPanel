@@ -1,43 +1,42 @@
-import grails.converters.JSON
 import grails.util.Environment
 import groovy.util.logging.Log
 import smspanel.*
 
 @Log
 class BootStrap {
-    
+
+    public static final String USERS_ENV_VAR = 'USERS'
     SmsService smsService
 
     def init = { servletContext ->
-        users()
+        createUsers()
         importContacts()
         ensureSmsProviderIsAccessible()
     }
 
-    void users() {
+    private void createUsers() {
         Role adminRole = new Role(authority: 'ROLE_ADMIN_USER').save(flush: true)
 
         if (Environment.developmentMode) {
-            log.info('App running in development mode, creating sample users')
+            List<String> sampleUsers = ['bob', 'alice']
+            log.info("App running in development mode, creating sample users ${sampleUsers}")
 
-            ['bob', 'alice'].each {
+            sampleUsers.each {
                 createUser(it, it, adminRole)
             }
         } else {
-            String credentialsFilename = System.getenv('CREDENTIALS')
-            log.info("App running in production mode, looking for users in ${credentialsFilename}")
+            String usersString = System.getenv(USERS_ENV_VAR)
+            log.info("App running in production mode, looking for users in environment var ${USERS_ENV_VAR}")
             
-            if (!credentialsFilename) {
-                throw new RuntimeException('Credentials filename not given')
-            }
-            
-            File file = new File(credentialsFilename)
-            if (!file.exists()) {
-                throw new RuntimeException('Credentials file does not exist')
+            if (!usersString) {
+                throw new RuntimeException('Users definition string not given')
             }
 
-            JSON.parse(file.text).each {
-                createUser(it.username, it.password, adminRole)
+            usersString.split(" ").each { usersAndPassword ->
+                List<String> split = usersAndPassword.split(":")
+                log.info("Creating user ${split[0]}")
+                
+                createUser(split[0], split[1], adminRole)
             }
         }
     }
@@ -48,12 +47,12 @@ class BootStrap {
         new UserRole(user: user, role: role).save(flush: true)
     }
 
-    void importContacts() {
+    private void importContacts() {
         log.info 'Importing contacts'
 
         def contactsFile
-        if (System.getenv('CONTACTS')) {
-            contactsFile = new File(System.getenv('CONTACTS'))
+        if (System.getenv('CONTACTS_CSV')) {
+            contactsFile = new File(System.getenv('CONTACTS_CSV'))
             log.info "Importing from external file ${contactsFile}"
         } else {
             contactsFile = System.getResource("/sample.csv")
@@ -67,7 +66,7 @@ class BootStrap {
                 .each { new Contact(it).save(failOnError: true, flush: true) }
     }
     
-    void ensureSmsProviderIsAccessible() {
+    private void ensureSmsProviderIsAccessible() {
         try {
             BigDecimal balance = smsService.accountBalance()
             log.info "SMS provider is accessible, account balance: ${balance}" 
