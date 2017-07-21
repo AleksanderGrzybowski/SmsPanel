@@ -1,4 +1,4 @@
-FROM java:8
+FROM openjdk:8-jre
 
 ENV API_USERNAME __set__me__
 ENV API_PASSWORD __set__me__
