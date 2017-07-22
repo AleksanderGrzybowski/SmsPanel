@@ -6,6 +6,9 @@ import smspanel.*
 class BootStrap {
 
     public static final String USERS_ENV_VAR = 'USERS'
+    public static final String CONTACTS_ENV_VAR = 'CONTACTS_CSV'
+    public static final List<String> SAMPLE_USERS = ['bob', 'alice']
+    
     SmsService smsService
 
     def init = { servletContext ->
@@ -18,16 +21,14 @@ class BootStrap {
         Role adminRole = new Role(authority: 'ROLE_ADMIN_USER').save(flush: true)
 
         if (Environment.developmentMode) {
-            List<String> sampleUsers = ['bob', 'alice']
-            log.info("App running in development mode, creating sample users ${sampleUsers}")
-
-            sampleUsers.each {
+            SAMPLE_USERS.each {
+                log.info("Creating sample user user ${it}")
                 createUser(it, it, adminRole)
             }
         } else {
             String usersString = System.getenv(USERS_ENV_VAR)
             log.info("App running in production mode, looking for users in environment var ${USERS_ENV_VAR}")
-            
+
             if (!usersString) {
                 throw new RuntimeException('Users definition string not given')
             }
@@ -35,24 +36,21 @@ class BootStrap {
             usersString.split(" ").each { usersAndPassword ->
                 List<String> split = usersAndPassword.split(":")
                 log.info("Creating user ${split[0]}")
-                
+
                 createUser(split[0], split[1], adminRole)
             }
         }
     }
-    
+
     private void createUser(String username, String password, role) {
-        log.info("Creating user ${username}")
         User user = new User(username: username, password: password).save(flush: true)
         new UserRole(user: user, role: role).save(flush: true)
     }
 
     private void importContacts() {
-        log.info 'Importing contacts'
-
         String contactsFileText
-        String filename = System.getenv('CONTACTS_CSV')
-        
+        String filename = System.getenv(CONTACTS_ENV_VAR)
+
         if (filename) {
             log.info "Importing from external file ${filename}"
             contactsFileText = new File(filename).text
@@ -60,24 +58,26 @@ class BootStrap {
             log.info 'Importing sample'
             contactsFileText = sampleCsv()
         }
-        
-        contactsFileText
-                .split('\n')
+
+        contactsFileText.split('\n')
                 .findAll { String line -> line.trim() != '' }
                 .collect { String line -> line.split(';') }
                 .collect { [name: it[0], groups: it[1], phone: it[2]] }
-                .each { new Contact(it).save(failOnError: true, flush: true) }
+                .each {
+                    log.info("Creating contact ${it}")
+                    new Contact(it).save(failOnError: true, flush: true)
+                }
     }
-    
+
     private void ensureSmsProviderIsAccessible() {
         try {
             BigDecimal balance = smsService.accountBalance()
-            log.info "SMS provider is accessible, account balance: ${balance}" 
+            log.info "SMS provider is accessible, account balance: ${balance}"
         } catch (Exception e) {
             throw new RuntimeException('Error accessing sms provider api', e)
         }
     }
-    
+
     private String sampleCsv() {
         '''
 Nora James;A;48123456789

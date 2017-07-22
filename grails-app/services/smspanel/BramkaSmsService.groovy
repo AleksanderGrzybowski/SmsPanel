@@ -19,7 +19,7 @@ class BramkaSmsService implements SmsService {
 
     BramkaSmsService(String apiUsername, String apiPassword) {
         if (apiUsername == null || apiUsername == '' || apiPassword == null || apiPassword == '') {
-            throw new IllegalArgumentException("Credentials number not provided")
+            throw new IllegalArgumentException('Credentials not provided')
         }
 
         this.apiUsername = apiUsername
