@@ -1,5 +1,5 @@
-out
 frontend/node_modules
 .idea
 .gradle
 .git
+build/
