@@ -55,12 +55,19 @@ export const login = (state = initialStateLogin, action) => {
     }
 };
 
+
+const removeSpinner = () => { // sorry, I love you FP, but I'm forced to
+    const loadingSpinner = document.getElementsByClassName('loading')[0];
+    loadingSpinner.remove();
+};
 const initialStateHealth = {wasCheckPerformed: false, healthy: true};
 export const health = (state = initialStateHealth, action) => {
     switch (action.type) {
         case 'BACKEND_HEALTH_CHECK_FAIL':
+            removeSpinner();
             return Object.assign({}, state, {wasCheckPerformed: true, healthy: false});
         case 'BACKEND_HEALTH_CHECK_SUCCESS':
+            removeSpinner();
             return Object.assign({}, state, {wasCheckPerformed: true, healthy: true});
         default:
             return state;
