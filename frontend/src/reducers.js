@@ -55,13 +55,13 @@ export const login = (state = initialStateLogin, action) => {
     }
 };
 
-const initialStateHealth = {healthy: true};
+const initialStateHealth = {wasCheckPerformed: false, healthy: true};
 export const health = (state = initialStateHealth, action) => {
     switch (action.type) {
         case 'BACKEND_HEALTH_CHECK_FAIL':
-            return Object.assign({}, state, {healthy: false});
+            return Object.assign({}, state, {wasCheckPerformed: true, healthy: false});
         case 'BACKEND_HEALTH_CHECK_SUCCESS':
-            return Object.assign({}, state, {healthy: true});
+            return Object.assign({}, state, {wasCheckPerformed: true, healthy: true});
         default:
             return state;
     }

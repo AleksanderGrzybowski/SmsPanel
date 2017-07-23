@@ -9,6 +9,9 @@ import NotificationBox from './smspanel/NotificationBox';
 
 export default class App extends Component {
     render() {
+        if (!this.props.health.wasCheckPerformed) {
+            return <div> </div>
+        }
         if (!this.props.health.healthy) {
             return <ErrorPage/>
         }
