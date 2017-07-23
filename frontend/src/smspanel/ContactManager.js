@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Col, Table, Badge } from 'react-bootstrap';
+import { Badge, Col, Table } from 'react-bootstrap';
 import NewMessageInput from './NewMessageInput';
 
 export default class ContactManager extends Component {
@@ -8,7 +8,8 @@ export default class ContactManager extends Component {
 
         this.state = {
             selectedContactIds: [],
-            selectedGroups: []
+            selectedGroups: [],
+            sortedAscending: true
         };
     }
 
@@ -26,9 +27,10 @@ export default class ContactManager extends Component {
     toggleSelected = (id) => {
         this.setState({
             selectedContactIds: this.state.selectedContactIds.includes(id) ? (
-                    this.state.selectedContactIds.filter(i => i !== id)
-                ) : (
-                    this.state.selectedContactIds.concat([id])                )
+                this.state.selectedContactIds.filter(i => i !== id)
+            ) : (
+                this.state.selectedContactIds.concat([id])
+            )
         });
     };
 
@@ -66,6 +68,12 @@ export default class ContactManager extends Component {
         this.setState({selectedContactIds: [], selectedGroups: []});
     };
 
+    sortedContacts = () => [...this.props.contacts].sort(
+        (a, b) => a.name.localeCompare(b.name) * (this.state.sortedAscending ? 1 : -1)
+    );
+
+    toggleOrder = () => this.setState({sortedAscending: !this.state.sortedAscending});
+
     render() {
         const groupCell = (groups) => groups.split(',').map(group => (
             <Badge key={group} style={{marginRight: 5}}>{group}</Badge>
@@ -80,7 +88,7 @@ export default class ContactManager extends Component {
 
         const isContactSelected = (id) => this.state.selectedContactIds.includes(id);
 
-        const rows = this.props.contacts.map(contact => (
+        const rows = this.sortedContacts().map(contact => (
             <tr
                 key={contact.id}
                 className={isContactSelected(contact.id) && 'info'}
@@ -104,13 +112,18 @@ export default class ContactManager extends Component {
             </Badge>
         ));
 
+        const sortIconClassname = this.state.sortedAscending ? 'fa fa-caret-down' : 'fa fa-caret-up';
+
         return (
             <Col md={8} mdOffset={2}>
                 <Table>
                     <thead>
                     <tr>
-                        <th> </th>
-                        <th>Imię</th>
+                        <th></th>
+                        <th>
+                            Imię
+                            <i className={sortIconClassname} style={{cursor: 'pointer', paddingLeft: 5}} onClick={this.toggleOrder}/>
+                        </th>
                         <th>Grupa</th>
                         <th>Nr telefonu</th>
                     </tr>
