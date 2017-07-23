@@ -64,6 +64,7 @@ export const loginSuccessful = (username, token) => (dispatch) => {
 };
 const loginError = () => ({type: 'LOGIN_ERROR'});
 export const login = (username, password) => (dispatch) => {
+    dispatch({type: 'LOGIN_REQUEST_START'});
     axios.post(`${backendUrl}/api/login`, {username, password})
         .then(({data}) => {
             dispatch(loginSuccessful(username, data.access_token));

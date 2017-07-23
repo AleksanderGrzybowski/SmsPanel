@@ -48,6 +48,12 @@ export default class LoginForm extends Component {
                 Błędny login lub hasło, spróbuj ponownie.
             </ErrorAlert>
         );
+        
+        const loginButtonContent = this.props.requestInProgress ? (
+            <i className="fa fa-spin fa-spinner"/>
+        ) : (
+            <span>Zaloguj</span>
+        );
 
         return (
             <Form horizontal onKeyPress={this.onKeypress}>
@@ -76,7 +82,7 @@ export default class LoginForm extends Component {
                         onClick={this.submitForm}
                         disabled={buttonDisabled}
                     >
-                        Zaloguj
+                        {loginButtonContent}
                     </Button>
                 </FormGroup>
                 {this.props.loginError ? loginErrorMessage : null}

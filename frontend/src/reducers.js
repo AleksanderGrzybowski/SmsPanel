@@ -36,15 +36,18 @@ const initialStateLogin = {
     loggedIn: false,
     loginError: false,
     username: null,
-    token: null
+    token: null,
+    requestInProgress: false
 };
 
 export const login = (state = initialStateLogin, action) => {
     switch (action.type) {
+        case 'LOGIN_REQUEST_START':
+            return Object.assign({}, state, {requestInProgress: true});
         case 'LOGIN_SUCCESSFUL':
-            return {loggedIn: true, loginError: false, username: action.username, token: action.token};
+            return {loggedIn: true, loginError: false, username: action.username, token: action.token, requestInProgress: false};
         case 'LOGIN_ERROR':
-            return Object.assign({}, state, initialStateLogin, {loginError: true});
+            return Object.assign({}, state, initialStateLogin, {loginError: true, requestInProgress: false});
         case 'LOGOUT':
             return initialStateLogin;
         default:

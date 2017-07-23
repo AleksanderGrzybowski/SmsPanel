@@ -23,6 +23,7 @@ export default class App extends Component {
                         <LoginForm
                             onLogin={this.props.onLogin}
                             loginError={this.props.login.loginError}
+                            requestInProgress={this.props.login.requestInProgress}
                         />
                     </Col>
                 </Row>
